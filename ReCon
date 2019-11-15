@@ -1,20 +1,12 @@
-﻿<#
+<#
 
-    .NAME
-        PowerTool
 
-    .VERSION
-        0.1
+ReCon GUI
 
-    .DESCRIPTION
-        Helpdesk tool for troubleshooting remote workstations
+Re-Purpose this script for Consys usage during on-sites, deployments, diagnostics and recon.
 
-    .LICENSE
-        MIT License
 
 #>
-
-# ================================ [Assemblies & Variables]
 
 ## Assemblies
 Add-Type -AssemblyName System.Windows.Forms
@@ -35,21 +27,21 @@ Set-Location $PSScriptRoot
 # ================================ [Form GUI]
 
 ### Main Form
-$PowerTool = New-Object system.Windows.Forms.Form
-$PowerTool.MinimumSize = New-Object System.Drawing.Size(770, 380)
-$PowerTool.Font = $font
-$PowerTool.Width = [int]960
-$PowerTool.Height = [int]500
-$PowerTool.AutoSize = $false
-$PowerTool.text = "PowerTool"
-$PowerTool.BackColor = $backgroundColour
-$PowerTool.StartPosition = "CenterScreen"
-$PowerTool.FormBorderStyle = "FixedDialog"
-$PowerTool.MaximizeBox = $False
-$PowerTool.ControlBox = $True
-$PowerTool.MinimizeBox = $true
-$PowerTool.mainMenuStrip = $mainMenu
-$PowerTool.KeyPreview = $True
+$ReCon = New-Object system.Windows.Forms.Form
+$ReCon.MinimumSize = New-Object System.Drawing.Size(770, 380)
+$ReCon.Font = $font
+$ReCon.Width = [int]960
+$ReCon.Height = [int]500
+$ReCon.AutoSize = $false
+$ReCon.text = "PowerTool"
+$ReCon.BackColor = $backgroundColour
+$ReCon.StartPosition = "CenterScreen"
+$ReCon.FormBorderStyle = "FixedDialog"
+$ReCon.MaximizeBox = $False
+$ReCon.ControlBox = $True
+$ReCon.MinimizeBox = $true
+$ReCon.mainMenuStrip = $mainMenu
+$ReCon.KeyPreview = $True
 
 # Logging Textbox
 $txbLogging = New-Object 'System.Windows.Forms.RichTextBox'
@@ -61,7 +53,7 @@ $txbLogging.Multiline = $true
 $txbLogging.ReadOnly = $true
 $txbLogging.TabIndex = 5
 $txbLogging.add_TextChanged($txbLogging_textchanged)
-$PowerTool.Controls.Add($txbLogging)
+$ReCon.Controls.Add($txbLogging)
 # Scroll to bottom of textbox when log updated
 $txbLogging_textchanged={
 
@@ -79,7 +71,7 @@ $btnConnect.location = New-Object System.Drawing.Point(722,42)
 $btnConnect.Font = 'Microsoft Sans Serif,10'
 $btnConnect.BackColor = $buttonColour
 $btnConnect.TabIndex = 2
-$PowerTool.Controls.Add($btnConnect)
+$ReCon.Controls.Add($btnConnect)
 
 # Hostname Label
 $lblHostname = New-Object system.Windows.Forms.Label
@@ -89,7 +81,7 @@ $lblHostname.width = 25
 $lblHostname.height = 30
 $lblHostname.location = New-Object System.Drawing.Point(20,50)
 $lblHostname.Font = 'Microsoft Sans Serif,10'
-$PowerTool.Controls.Add($lblHostname)
+$ReCon.Controls.Add($lblHostname)
 
 # Hostname Textbox
 $txbHostname = New-Object system.Windows.Forms.TextBox
@@ -100,7 +92,7 @@ $txbHostname.CharacterCasing = "Upper"
 $txbHostname.location = New-Object System.Drawing.Point(170,46)
 $txbHostname.Font = 'Microsoft Sans Serif,10'
 $txbHostname.TabIndex = 0
-$PowerTool.Controls.Add($txbHostname)
+$ReCon.Controls.Add($txbHostname)
 
 # IP Address Label
 $lblAddress = New-Object system.Windows.Forms.Label
@@ -110,7 +102,7 @@ $lblAddress.width = 25
 $lblAddress.height = 30
 $lblAddress.location  = New-Object System.Drawing.Point(375,50)
 $lblAddress.Font = 'Microsoft Sans Serif,10'
-$PowerTool.Controls.Add($lblAddress)
+$ReCon.Controls.Add($lblAddress)
 
 # IP Address Textbox
 $txbIPAddress = New-Object system.Windows.Forms.TextBox
@@ -122,7 +114,7 @@ $txbIPAddress.MaxLength = 15
 $txbIPAddress.location = New-Object System.Drawing.Point(495,46)
 $txbIPAddress.Font = 'Microsoft Sans Serif,10'
 $txbIPAddress.TabIndex = 1
-$PowerTool.Controls.Add($txbIPAddress)
+$ReCon.Controls.Add($txbIPAddress)
 
 # Clear Button
 $btnClearLogs = New-Object system.Windows.Forms.Button
@@ -133,7 +125,7 @@ $btnClearLogs.location = New-Object System.Drawing.Point(822,420)
 $btnClearLogs.Font = 'Microsoft Sans Serif,10'
 $btnClearLogs.BackColor = $buttonColour
 $btnClearLogs.TabIndex = 4
-$PowerTool.Controls.Add($btnClearLogs)
+$ReCon.Controls.Add($btnClearLogs)
 
 # Copy Button
 $btnCopyLogs = New-Object system.Windows.Forms.Button
@@ -144,7 +136,7 @@ $btnCopyLogs.location = New-Object System.Drawing.Point(722,420)
 $btnCopyLogs.Font = 'Microsoft Sans Serif,10'
 $btnCopyLogs.BackColor = $buttonColour
 $btnCopyLogs.TabIndex = 3
-$PowerTool.Controls.Add($btnCopyLogs)
+$ReCon.Controls.Add($btnCopyLogs)
 
 ### Main Menu Strip
 $mainMenu = New-Object 'System.Windows.Forms.MenuStrip'
@@ -152,7 +144,7 @@ $mainMenu.Font = "Trebuchet MS, 9pt"
 $mainMenu.Location = '0, 0'
 $mainMenu.Size = '1170, 26'
 $mainMenu.Text = "menustrip1"
-$PowerTool.Controls.Add($mainMenu)
+$ReCon.Controls.Add($mainMenu)
 
 ## Tools Dropdown
 $toolsDropdown = New-Object 'System.Windows.Forms.ToolStripMenuItem'
@@ -410,7 +402,7 @@ $appvDropdown.Image = [System.Convert]::FromBase64String('iVBORw0KGgoAAAANSUhEUg
 
 # ================================ [Button Events]
 
-$PowerTool.Add_KeyDown({
+$ReCon.Add_KeyDown({
 
     # Emulate key press when entered key pressed
 
@@ -509,4 +501,4 @@ $tools_remote_Ping.Add_Click({
 })
 
 ### Show Form
-[void]$PowerTool.ShowDialog() 
+[void]$ReCon.ShowDialog() 
